@@ -7,5 +7,6 @@ describe('HelloWorld.vue', () => {
     const vm = new Constructor().$mount()
     expect(vm.$el.querySelector('.hello h1').textContent)
       .toEqual('Welcome to Your Vue.js App')
+      //test push
   })
 })
