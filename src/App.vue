@@ -22,6 +22,7 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   height: 100%;
+  font-size: 14px;
 }
 ul {
   margin-block-start: 0;
