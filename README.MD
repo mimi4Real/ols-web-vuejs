@@ -1,4 +1,4 @@
-# ols-web--
+# ols-web-
 
 ## Online Learning System Web Client
 
