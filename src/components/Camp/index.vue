@@ -84,8 +84,6 @@ export default {
 }
 </script>
 <style>
-.camp-detail-wrap {
-}
 .camp-detail-main {
   display: flex;
   flex-direction: column;
