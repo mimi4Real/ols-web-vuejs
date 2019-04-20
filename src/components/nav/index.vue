@@ -4,10 +4,9 @@
       mode="horizontal"
       :default-active="activeIndex"
       active-text-color="#00b4c5">
-      <el-menu-item v-for="(nav, index) in navs" key="nav.route" :index="index">
+      <el-menu-item v-for="(nav, index) in navs" :key="nav.route" :index="index">
         <router-link :to="nav.route">{{nav.name}}</router-link>
       </el-menu-item>
-
     </el-menu>
     <div class="ols-container">
       <router-view></router-view>

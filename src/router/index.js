@@ -5,10 +5,12 @@ import SignUp from '@/components/SignUp'
 import Listing from '@/components/Listing'
 import Nav from '@/components/Nav'
 import CreateCamp from '@/components/CreateCamp'
+import Camp from '@/components/Camp'
 
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -31,6 +33,10 @@ export default new Router({
         path: 'createCamp',
         name: 'CreateCamp',
         component: CreateCamp
+      },{
+        path: 'camp',
+        name: 'Camp',
+        component: Camp
       }]
     }
   ]

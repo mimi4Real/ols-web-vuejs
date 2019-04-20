@@ -59,7 +59,8 @@
     },
     methods: {
       submitForm(formName) {
-        api.login();
+        this.$router({path: '/camp'});
+        // api.login();
       }
     }
   }

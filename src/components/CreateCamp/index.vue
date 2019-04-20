@@ -32,7 +32,6 @@
     },
     methods: {
       submitForm(formName) {
-        debugger
         api.postCamp();
       }
     }
