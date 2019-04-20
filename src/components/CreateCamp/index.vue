@@ -51,7 +51,7 @@
         this.$refs.form.validate((valid) => {
           if (valid){
             api.postCamp({...this.form}).then(() => {
-              
+
             });
           }
         });
