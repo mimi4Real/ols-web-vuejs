@@ -14,8 +14,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'SignIn',
-      component: SignIn
+      redirect: '/view/listing'
     },
     {
       path: '/signup',
