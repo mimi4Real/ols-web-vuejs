@@ -23,7 +23,7 @@ export function deleteCampList(campId){
   return request({
     url: `${API_BASE}/delete`,
     method: 'delete',
-    data: {id: campId}
+    data: campId
   })
 }
 
