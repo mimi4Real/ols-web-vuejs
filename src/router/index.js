@@ -33,7 +33,7 @@ export default new Router({
         name: 'CreateCamp',
         component: CreateCamp
       },{
-        path: 'camp',
+        path: 'camp/:campId',
         name: 'Camp',
         component: Camp
       }]
