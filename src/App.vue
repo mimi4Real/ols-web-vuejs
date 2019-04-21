@@ -24,7 +24,7 @@ html, body {
   height: 100%;
   font-size: 14px;
 }
-ul {
+ul, p {
   margin-block-start: 0;
   margin-block-end: 0;
   margin-inline-start: 0px;

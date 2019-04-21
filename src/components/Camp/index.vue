@@ -11,11 +11,14 @@
         <div class="camp-detail">
           <div class="camp-detail-desc">{{desc}}</div>
           <div class="camp-detail-task-wrap">
-            <el-card class="task-item active"></el-card>
-            <el-card class="task-item"></el-card>
-            <el-card class="task-item"></el-card>
-            <el-card class="task-item"></el-card>
-            <el-card class="task-item"></el-card>
+            <el-card class="task-item" v-for="(task, index) in listData" :key="index" :class="index === 0 ? 'active' : ''">
+              <i class="el-icon-close card-close"></i>
+              <div class="task-card-body">
+                <p class="task-card-title">{{task.title}}</p>
+                <div class="task-card-desc">{{task.desc}}</div>
+                <p class="task-card-date">{{task.creatDate}}创建</p>
+              </div>
+            </el-card>
           </div>
         </div>
         <ul class="task-userlist">
@@ -32,11 +35,34 @@
 </template>
 
 <script>
+import { getCampDetail } from '@/api'
 export default {
   data() {
     return {
+      campId: '',
       title: '敏捷训练营',
       desc: '京东敏捷实战特训，京东内部的高绩效团队培训，真正的敏捷培训，为你深度分享用户故事、敏捷估算、敏捷项目计划及跟踪（任务看板，每日会议）等敏捷实践。',
+      listData: [{
+        title: '任务卡1',
+        desc: '京东敏捷实战特训，京东内部的高绩效团队培训，真正的敏捷培训，为你深度分享用户故事、敏捷估算、敏捷项目计划及跟踪（任务看板，每日会议）等敏捷实践。',
+        creatDate: '2018-11-15'
+      },{
+        title: '任务卡2',
+        desc: '了解数据和基本的EDA、数据清洗、搭建和选择统计学模型、模型和数据的诊断。',
+        creatDate: '2018-11-15'
+      },{
+        title: '任务卡3',
+        desc: '了解数据和基本的EDA、数据清洗、搭建和选择统计学模型、模型和数据的诊断。',
+        creatDate: '2018-11-15'
+      },{
+        title: '任务卡4',
+        desc: '京东敏捷实战特训，京东内部的高绩效团队培训，真正的敏捷培训，为你深度分享用户故事、敏捷估算、敏捷项目计划及跟踪（任务看板，每日会议）等敏捷实践。',
+        creatDate: '2018-11-15'
+      },{
+        title: '任务卡5',
+        desc: '京东敏捷实战特训，京东内部的高绩效团队培训，真正的敏捷培训，为你深度分享用户故事、敏捷估算、敏捷项目计划及跟踪（任务看板，每日会议）等敏捷实践。',
+        creatDate: '2018-11-15'
+      }],
       userList: [{
         name: '任刚',
         email: 'k.xuvfytfke@gmail.com',
@@ -77,6 +103,10 @@ export default {
     for (const user of this.userList) {
       user.logo = url;
     }
+    this.campId = this.$route.params.campId;
+    // getCampDetail(this.campId).then((res) => {
+    //   console.log(res);
+    // });
   },
   mounted() {
     
@@ -87,13 +117,15 @@ export default {
 .camp-detail-main {
   display: flex;
   flex-direction: column;
+  padding-top: 30px;
 }
 .camp-detail-item {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 .camp-detail-back {
   font-size: 18px;
   color: #00b4c5;
+  cursor: pointer;
 }
 .camp-detail-title {
   font-size: 18px;
@@ -115,11 +147,37 @@ export default {
   padding-right: 70px;
 }
 .task-item {
+  position: relative;
   width: calc(50% - 20px);
-  margin-top: 20px;
+  margin-top: 30px;
   height: 200px;
   border-radius: 8px;
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
+  color: #686868;
+  padding: 20px 35px 30px;
+  box-sizing: border-box;
+}
+.card-close {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  font-size: 15px;
+  cursor: pointer;
+}
+.card-close:hover {
+  transform: rotate(360deg);
+  transition: transform 0.5s linear;
+}
+.task-item .el-card__body {
+  padding: 0;
+}
+.task-card-desc {
+  height: 80px;
+  padding: 25px 0 10px;
+}
+.task-card-title {
+  font-size: 18px;
+  color: #00b4c5;
 }
 .task-item.active{
   box-shadow: 0 0 10px 0 #00b4c5;
@@ -135,7 +193,7 @@ export default {
   line-height: 40px;
   width: 100%;
   height: 40px;
-  padding: 20px 0;
+  padding-bottom: 20px;
   font-size: 14px;
   color: #686868;
 }
