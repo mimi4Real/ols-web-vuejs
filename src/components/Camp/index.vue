@@ -22,7 +22,7 @@
           </div>
         </div>
         <ul class="task-userlist">
-          <li class="task-user" v-for="(user, index) in userList" :key="index">
+          <li class="task-user" v-for="(user, index) in userList" :key="index" :class="{'active-text': index === 0}">
             <img :src="user.logo"  class="user-logo" />
             <span>{{user.name}}</span>
             <span>{{user.email}}</span>
@@ -162,6 +162,9 @@ export default {
   width: 40px;
   height: 40px;
   border-radius: 50%;
+}
+.active-text {
+  color: #00b4c5;
 }
 </style>
 
