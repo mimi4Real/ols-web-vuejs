@@ -2,7 +2,6 @@ import http from 'http'
 import storeBase from './../store/'
 
 const API_BASE = 'http://10.205.20.206:8081/api/training_camp'
-console.log(http);
 export default {
   login () {
     return http.post(`${API_BASE}/login`)
