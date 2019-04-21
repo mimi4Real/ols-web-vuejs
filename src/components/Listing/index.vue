@@ -13,9 +13,9 @@
           </div>
         </div>
       </el-col>
-      <el-col v-for="card in data" :key="card.id" :span="8" class="ols-listing__card-col" @click.native="handleShowDetail(card)">
+      <el-col v-for="(card,index) in data" :key="card.id" :span="8" class="ols-listing__card-col" @click.native="handleShowDetail(card)">
         <div class="ols-listing__card-item">
-          <i @click="handleDelete(card.id)" class="el-icon-close ols-listing__card-item-close"></i>
+          <i @click="handleDelete($event, card.id ,index)" class="el-icon-close ols-listing__card-item-close"></i>
           <p class="card-item__title">{{card.title}}</p>
           <p class="card-item__description">{{card.desc}}</p>
           <p class="card-item__date">{{card.startDate + '开营'}}</p>
@@ -25,6 +25,9 @@
   </div>
 </template>
 <script>
+  // import {get} from '../../api/http'
+  import {getCampList, deleteCampList} from '../../api/index'
+
   export default {
     data(){
       return {
@@ -32,27 +35,10 @@
       }
     },
     created() {
-      this.data = [{
-        id: 1,
-        title: '敏捷训练营',
-        desc: '京东敏捷实战特训，京东内部的高绩效团队培训，真正的敏捷培训，为你深度分享用户故事、敏捷估算、敏捷项目计划及跟踪（任务看板，每日会议）等敏捷实践。',
-        startDate: '2019-3-25'
-      }, {
-        id: 2,
-        title: '敏捷训练营',
-        desc: '京东敏捷实战特训，京东内部的高绩效团队培训，真正的敏捷培训，为你深度分享用户故事、敏捷估算、敏捷项目计划及跟踪（任务看板，每日会议）等敏捷实践。',
-        startDate: '2019-3-25'
-      }, {
-        id: 3,
-        title: '敏捷训练营',
-        desc: '京东敏捷实战特训，京东内部的高绩效团队培训，真正的敏捷培训，为你深度分享用户故事、敏捷估算、敏捷项目计划及跟踪（任务看板，每日会议）等敏捷实践。',
-        startDate: '2019-3-25'
-      }, {
-        id: 4,
-        title: '敏捷训练营',
-        desc: '京东敏捷实战特训，京东内部的高绩效团队培训，真正的敏捷培训，为你深度分享用户故事、敏捷估算、敏捷项目计划及跟踪（任务看板，每日会议）等敏捷实践。',
-        startDate: '2019-3-25'
-      }]
+      getCampList().then(data => {
+        this.data = data;
+      }).catch(error => {
+      });
     },
     methods: {
       handleAdd() {
@@ -63,23 +49,28 @@
         this.$router.push(`/view/camp/${card.id}`);
       },
 
-      handleDelete(cardId){
-        //todo 数据库操作
+      handleDelete(e, cardId, index){
+        e.stopPropagation();
         this.$confirm('是否确认删除词训练营？', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          //todo
-          this.$message({
-            type: 'success',
-            message: '删除成功!'
+          deleteCampList(cardId).then(data => {
+            this.data.splice(index,1);
+            this.$message({
+              type: 'success',
+              message: '删除成功!'
+            });
+          }).catch(error => {
+            this.$message({
+              type: 'error',
+              message: '删除失败!'
+            });
           });
+
         }).catch(() => {
-          /*this.$message({
-            type: 'info',
-            message: '已取消删除'
-          });*/
+
         });
       }
     }
@@ -106,6 +97,11 @@
     cursor: pointer;
     color: #686868;
   }
+
+  .ols-listing__card-item:hover {
+    box-shadow: 0 0 10px 0 #00b4c5;
+  }
+
   .card-item__title {
     font-size: 18px;
     color: #00b4c5;
@@ -115,6 +111,9 @@
   .card-item__description{
     margin-top: 0;
     margin-bottom: 9px;
+    height: 80px;
+    word-wrap: break-word;
+    overflow: hidden;
   }
   .card-item__date{
     margin: 0;

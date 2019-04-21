@@ -1,10 +1,7 @@
 import Axios from 'axios'
 import storeBase from '../store'
 
-// console.log(storeBase.state.user.token)
-// const ax = new Axios({
-//   headers: {'Authorization': storeBase.state.user.token}
-// })
+
 
 const service = Axios.create({
   timeout: 150000,
