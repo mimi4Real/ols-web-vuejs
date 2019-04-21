@@ -104,9 +104,9 @@ export default {
       user.logo = url;
     }
     this.campId = this.$route.params.campId;
-    // getCampDetail(this.campId).then((res) => {
-    //   console.log(res);
-    // });
+    getCampDetail(this.campId).then(res => {
+      console.log(res)
+    });
   },
   mounted() {
     
