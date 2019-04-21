@@ -16,7 +16,7 @@
     </el-form-item>
     <div Id="formFooter">
       <el-button type="text" @click="goBack()">取消</el-button>
-      <el-button type="primary" @click="submitForm('ruleForm')">保存</el-button>
+      <el-button type="primary" @click="submitForm('ruleForm')" class="saveButton">保存</el-button>
     </div>
   </el-form>
 </template>
@@ -29,7 +29,7 @@
       return {
         form: {
           title: '',
-          description: ''
+          desc: ''
         },
         rules: {
           title: [
@@ -40,7 +40,7 @@
               callback();
             }, trigger: 'blur'}
           ],
-          description: [
+          desc: [
             {maxLength: 300, message: '描述不能超过300个字符', trigger: 'blur'}
           ]
         }
@@ -50,8 +50,16 @@
       submitForm(formName) {
         this.$refs.form.validate((valid) => {
           if (valid){
-            api.postCamp({...this.form}).then(() => {
-
+            api.postCamp({...this.form}).then((res) => {
+              if (res.status === 201){
+                return res.text();
+              }
+              return Promise.reject(res.text());
+            }).then((text) => (text === 'success' ? Promise.resolve() : Promise.reject())).then((res) => {
+              this.$message.success('创建成功');
+              this.$router.go(-1);
+            }).catch((res) => {
+              this.$message.error('标题已被使用');
             });
           }
         });
@@ -118,6 +126,18 @@
     height: 40px;
     border-radius: 4px;
     border: solid 1px #979797;
+  }
+
+  .saveButton{
+    border-radius: 5px;
+    color: #fff;
+    background-color: #00b4c5;
+    border-color: #00b4c5;
+  }
+  .saveButton:focus, .saveButton:hover {
+    background: #00b4c5;
+    border-color: #00b4c5;
+    color: #fff;
   }
 
   #descInput {
