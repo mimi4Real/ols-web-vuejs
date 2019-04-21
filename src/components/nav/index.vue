@@ -7,10 +7,9 @@
         class="ols-nav__menu"
         :default-active="active"
         active-text-color="#00b4c5">
-        <el-menu-item v-for="(nav, index) in navs" :key="nav.code" :index="nav.code">
-          <router-link :to="nav.route">{{nav.name}}</router-link>
+        <el-menu-item v-if="nav.meta.showMenu" v-for="nav in navs" :key="nav.path" :index="nav.path">
+          <router-link :to="'/view/' + nav.path">{{nav.meta.title}}</router-link>
         </el-menu-item>
-
       </el-menu>
       <div class="ols-nav__nav-avatar"></div>
     </div>
@@ -22,23 +21,14 @@
 </template>
 
 <script>
+  import {navs} from '../../router/index';
+
   export default {
     data() {
+      const route = this.$route;
       return {
-        navs: [{
-          name: '账户',
-          code: 'listing',
-          route: '/view/signin'
-        }, {
-          name: '训练营',
-          code: 'sd',
-          route: '/view/listing'
-        }, {
-        name: '任务卡',
-        code: 'cards',
-        route: '/view/camp'
-      }],
-      active: 'listing'
+        navs: navs,
+        active: route.meta.belong
       }
     }
   }
@@ -83,6 +73,7 @@
   }
 
   .ols-nav__menu a{
+    display: block;
     text-decoration: none;
   }
   .ols-container{

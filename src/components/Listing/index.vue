@@ -5,14 +5,16 @@
       <el-button class="ols-button--primary">搜索</el-button>
     </div>
     <el-row :gutter='20' class="ols-listing__card">
-      <el-col v-for="card in data" :key="card.id" :span="8" class="ols-listing__card-col">
-        <div class="ols-listing__card-item" v-if="card.type === 'add'">
+      <el-col :span="8" class="ols-listing__card-col">
+        <div class="ols-listing__card-item" @click="handleAdd">
           <div class="ols-listing__card-add">
             <img src="./img/add.png">
             <p>创建训练营</p>
           </div>
         </div>
-        <div class="ols-listing__card-item" v-else>
+      </el-col>
+      <el-col v-for="card in data" :key="card.id" :span="8" class="ols-listing__card-col" @click.native="handleShowDetail(card)">
+        <div class="ols-listing__card-item">
           <i @click="handleDelete(card.id)" class="el-icon-close ols-listing__card-item-close"></i>
           <p class="card-item__title">{{card.title}}</p>
           <p class="card-item__description">{{card.desc}}</p>
@@ -51,16 +53,14 @@
         desc: '京东敏捷实战特训，京东内部的高绩效团队培训，真正的敏捷培训，为你深度分享用户故事、敏捷估算、敏捷项目计划及跟踪（任务看板，每日会议）等敏捷实践。',
         startDate: '2019-3-25'
       }]
-
-      this.data.unshift({
-        type: 'add',
-        id: 'add'
-      })
-      console.log(this.data)
     },
     methods: {
       handleAdd() {
-        // todo this.$router.push('/home/first')
+        this.$router.push('/view/createCamp');
+      },
+
+      handleShowDetail(card){
+        this.$router.push(`/view/camp/${card.id}`);
       },
 
       handleDelete(cardId){

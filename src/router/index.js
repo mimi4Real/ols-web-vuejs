@@ -9,6 +9,48 @@ import Camp from '@/components/Camp'
 
 Vue.use(Router)
 
+export const navs  = [{
+  path: 'account',
+  meta: {
+    title: '账户',
+    showMenu: true,
+    belong: 'account',
+  }
+}, {
+  path: 'listing',
+  component: Listing,
+  meta: {
+    title: '训练营',
+    showMenu: true,
+    belong: 'listing',
+  }
+},{
+  path: 'cards',
+  meta: {
+    title: '任务卡',
+    showMenu: true,
+    belong: 'cards',
+  }
+}, {
+  path: 'createCamp',
+  name: 'CreateCamp',
+  component: CreateCamp,
+  meta: {
+    title: '新增训练营',
+    showMenu: false,
+    belong: 'listing',
+  }
+},{
+  path: 'camp/:campId',
+  name: 'Camp',
+  component: Camp,
+  meta: {
+    title: '训练营详情',
+    showMenu: false,
+    belong: 'listing',
+  }
+}]
+
 export default new Router({
   mode: 'history',
   routes: [
@@ -25,18 +67,7 @@ export default new Router({
       path: '/view',
       name: 'View',
       component: Nav,
-      children: [{
-        path: 'listing',
-        component: Listing
-      },{
-        path: 'createCamp',
-        name: 'CreateCamp',
-        component: CreateCamp
-      },{
-        path: 'camp/:campId',
-        name: 'Camp',
-        component: Camp
-      }]
+      children: navs
     }
   ]
 })
