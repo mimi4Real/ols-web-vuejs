@@ -1,6 +1,6 @@
 import http from 'http'
 
-const API_BASE = '/api'
+const API_BASE = 'http://10.205.20.206:8081/api/training_camp'
 
 export default {
   login () {
